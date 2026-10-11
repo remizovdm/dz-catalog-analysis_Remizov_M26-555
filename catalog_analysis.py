@@ -52,6 +52,25 @@ def duration_in_hours(minutes):
   min = minutes % 60
   return f'{h}ч {min}м'
 
+def rating_tier(rating):
+  if rating >= 9:
+    return "шедевр"
+  elif rating >= 7 and rating <= 8.9:
+    return "хорошо"
+  elif rating >= 5 and rating <= 6.9:
+    return "средне"
+  else:
+    return "слабо"
+
+def decade_label(year):
+  match year:
+    case _ if year > 2020:
+        return "новые"
+    case _ if year >= 2015 and year <= 2020:
+        return "недавние"
+    case _ if year < 2015:
+        return "старые"
+
 
 def main():
     print("Hello from dz1!")
