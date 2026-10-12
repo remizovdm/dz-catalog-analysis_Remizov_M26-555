@@ -96,6 +96,32 @@ def count_long_movies(movies, threshold=120):
   return counter
 
 
+def normalize_title(title):
+  title_list = title.split()
+
+  for i in range(len(title_list)):
+    title_list[i] = title_list[i][0].upper() + title_list[i][1:]
+  
+  title_updated = " ".join(title_list)
+  
+  return title_updated
+
+def make_slug(title):
+  slug = title.lower()
+  slug = slug.replace(" ","-")
+
+  return slug
+
+def format_report_line(movie):
+  return (
+      f'"{normalize_title(movie["title"])}" '      
+      f'({movie["year"]}) — '
+      f'{movie["rating"]}/10, ' 
+      f'{duration_in_hours(movie["duration_min"])}, '
+      f'жанры: {", ".join(sorted(movie["genres"]))}'
+  )
+
+
 def main():
     print("Hello from dz1!")
 
