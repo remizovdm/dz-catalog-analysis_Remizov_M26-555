@@ -91,8 +91,7 @@ def count_long_movies(movies, threshold=120):
   counter = 0
   for movie in movies:
     if movie["duration_min"] > threshold:
-      counter += 1
-  
+      counter += 1 
   return counter
 
 
@@ -102,14 +101,12 @@ def normalize_title(title):
   for i in range(len(title_list)):
     title_list[i] = title_list[i][0].upper() + title_list[i][1:]
   
-  title_updated = " ".join(title_list)
-  
+  title_updated = " ".join(title_list) 
   return title_updated
 
 def make_slug(title):
   slug = title.lower()
   slug = slug.replace(" ","-")
-
   return slug
 
 def format_report_line(movie):
@@ -120,6 +117,21 @@ def format_report_line(movie):
       f'{duration_in_hours(movie["duration_min"])}, '
       f'жанры: {", ".join(sorted(movie["genres"]))}'
   )
+
+def titles_sorted_by_rating(movies):
+  sorted_titles = []
+  sorted_by_rating = sorted(movies, key = lambda movie: movie['rating'])
+  for movie in sorted_by_rating:
+    sorted_titles.append(normalize_title(movie['title']))
+  return sorted_titles
+
+def top_n_by_rating(movies, n=3):
+  top_by_rating = []
+  sorted_by_rating = sorted(movies, key = lambda movie: movie['rating'], reverse=True)
+  for i in range(n):
+    title_and_rating = (normalize_title(sorted_by_rating[i]['title']), sorted_by_rating[i]['rating'])
+    top_by_rating.append(title_and_rating)
+  return top_by_rating
 
 
 def main():
