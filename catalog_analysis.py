@@ -1,5 +1,11 @@
 import math
 
+def main():
+    print("Hello from dz1!")
+
+if __name__ == "__main__":
+    main()
+
 movies = [
     {"title": "The Dune Chronicles", "year": 2021, "genres": {"sci-fi", "drama"},
      "rating": 8.6, "duration_min": 155, "actors": ["T. Chalamet", "R. Ferguson", "O. Isaac"]},
@@ -185,10 +191,22 @@ for movie in iter_high_rated(movies):
 
 sum(m["duration_min"] for m in movies if m["rating"] > 7)
 
-
-def main():
-    print("Hello from dz1!")
-
-
-if __name__ == "__main__":
-    main()
+def build_report(movies):
+  print('ОТЧЕТ ПО КАТАЛОГУ')
+  print(f'Средний рейтинг: {average_rating(movies)}')
+  print(f'Средний возраст фильмов: {catalog_age_stats(movies, current_year=2026)[2]} лет\n\n')
+  print('Топ-3 фильма:\n')
+  for title, rating in top_n_by_rating(movies, n=3):
+    for movie in movies:
+      if normalize_title(movie["title"]) == title:
+        print("  " + format_report_line(movie))
+  print('\n')
+  print('Фильмов по жанрам:')
+  movies_by_genre = count_by_genre(movies)
+  for key, value in movies_by_genre.items():
+    print(f'{key} - {value}')
+  print('\n')
+  genres_all = [genre for genre in all_genres(movies)]
+  genres_all.sort()
+  genres_in_a_line = ", ".join(genres_all)
+  print(f'Все жанры каталога: {genres_in_a_line}')
